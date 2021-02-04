@@ -29,15 +29,32 @@ Partial Class Form1
         Me.生產系統BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DataSet1 = New winData2.DataSet1()
         Me.dgEquip = New System.Windows.Forms.DataGridView()
+        Me.btAddData = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.識別碼DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.設備名稱DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.設備編號DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.系統DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.安裝日期DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.設備BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.生產系統TableAdapter = New winData2.DataSet1TableAdapters.生產系統TableAdapter()
+        Me.設備TableAdapter = New winData2.DataSet1TableAdapters.設備TableAdapter()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.dgMaintain = New System.Windows.Forms.DataGridView()
         Me.Panel1.SuspendLayout()
         CType(Me.生產系統BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataSet1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgEquip, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.設備BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        CType(Me.dgMaintain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.Beige
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.cmbEquip)
         Me.Panel1.Controls.Add(Me.cmbSystem)
         Me.Panel1.Location = New System.Drawing.Point(18, 16)
@@ -51,7 +68,7 @@ Partial Class Form1
         Me.cmbEquip.FormattingEnabled = True
         Me.cmbEquip.Location = New System.Drawing.Point(49, 56)
         Me.cmbEquip.Name = "cmbEquip"
-        Me.cmbEquip.Size = New System.Drawing.Size(180, 24)
+        Me.cmbEquip.Size = New System.Drawing.Size(234, 24)
         Me.cmbEquip.TabIndex = 1
         '
         'cmbSystem
@@ -62,7 +79,7 @@ Partial Class Form1
         Me.cmbSystem.Location = New System.Drawing.Point(49, 25)
         Me.cmbSystem.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbSystem.Name = "cmbSystem"
-        Me.cmbSystem.Size = New System.Drawing.Size(180, 24)
+        Me.cmbSystem.Size = New System.Drawing.Size(234, 24)
         Me.cmbSystem.TabIndex = 0
         Me.cmbSystem.ValueMember = "系統"
         '
@@ -78,23 +95,103 @@ Partial Class Form1
         '
         'dgEquip
         '
+        Me.dgEquip.AutoGenerateColumns = False
         Me.dgEquip.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgEquip.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.btAddData, Me.識別碼DataGridViewTextBoxColumn, Me.設備名稱DataGridViewTextBoxColumn, Me.設備編號DataGridViewTextBoxColumn, Me.系統DataGridViewTextBoxColumn, Me.安裝日期DataGridViewTextBoxColumn})
+        Me.dgEquip.DataSource = Me.設備BindingSource
         Me.dgEquip.Location = New System.Drawing.Point(18, 145)
         Me.dgEquip.Margin = New System.Windows.Forms.Padding(4)
         Me.dgEquip.Name = "dgEquip"
         Me.dgEquip.RowTemplate.Height = 24
-        Me.dgEquip.Size = New System.Drawing.Size(944, 385)
+        Me.dgEquip.Size = New System.Drawing.Size(944, 95)
         Me.dgEquip.TabIndex = 1
+        '
+        'btAddData
+        '
+        Me.btAddData.DataPropertyName = "識別碼"
+        Me.btAddData.HeaderText = "新增"
+        Me.btAddData.Name = "btAddData"
+        Me.btAddData.Text = "新增保養日期"
+        Me.btAddData.UseColumnTextForButtonValue = True
+        '
+        '識別碼DataGridViewTextBoxColumn
+        '
+        Me.識別碼DataGridViewTextBoxColumn.DataPropertyName = "識別碼"
+        Me.識別碼DataGridViewTextBoxColumn.HeaderText = "識別碼"
+        Me.識別碼DataGridViewTextBoxColumn.Name = "識別碼DataGridViewTextBoxColumn"
+        '
+        '設備名稱DataGridViewTextBoxColumn
+        '
+        Me.設備名稱DataGridViewTextBoxColumn.DataPropertyName = "設備名稱"
+        Me.設備名稱DataGridViewTextBoxColumn.HeaderText = "設備名稱"
+        Me.設備名稱DataGridViewTextBoxColumn.Name = "設備名稱DataGridViewTextBoxColumn"
+        '
+        '設備編號DataGridViewTextBoxColumn
+        '
+        Me.設備編號DataGridViewTextBoxColumn.DataPropertyName = "設備編號"
+        Me.設備編號DataGridViewTextBoxColumn.HeaderText = "設備編號"
+        Me.設備編號DataGridViewTextBoxColumn.Name = "設備編號DataGridViewTextBoxColumn"
+        '
+        '系統DataGridViewTextBoxColumn
+        '
+        Me.系統DataGridViewTextBoxColumn.DataPropertyName = "系統"
+        Me.系統DataGridViewTextBoxColumn.HeaderText = "系統"
+        Me.系統DataGridViewTextBoxColumn.Name = "系統DataGridViewTextBoxColumn"
+        '
+        '安裝日期DataGridViewTextBoxColumn
+        '
+        Me.安裝日期DataGridViewTextBoxColumn.DataPropertyName = "安裝日期"
+        Me.安裝日期DataGridViewTextBoxColumn.HeaderText = "安裝日期"
+        Me.安裝日期DataGridViewTextBoxColumn.Name = "安裝日期DataGridViewTextBoxColumn"
+        '
+        '設備BindingSource
+        '
+        Me.設備BindingSource.DataMember = "設備"
+        Me.設備BindingSource.DataSource = Me.DataSet1
         '
         '生產系統TableAdapter
         '
         Me.生產系統TableAdapter.ClearBeforeFill = True
         '
+        '設備TableAdapter
+        '
+        Me.設備TableAdapter.ClearBeforeFill = True
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Location = New System.Drawing.Point(22, 247)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(940, 324)
+        Me.TabControl1.TabIndex = 2
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.dgMaintain)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(932, 294)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "保養日期"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'dgMaintain
+        '
+        Me.dgMaintain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgMaintain.Location = New System.Drawing.Point(6, 12)
+        Me.dgMaintain.Name = "dgMaintain"
+        Me.dgMaintain.RowTemplate.Height = 24
+        Me.dgMaintain.Size = New System.Drawing.Size(920, 276)
+        Me.dgMaintain.TabIndex = 0
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(980, 559)
+        Me.ClientSize = New System.Drawing.Size(994, 598)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.dgEquip)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("新細明體", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
@@ -105,6 +202,10 @@ Partial Class Form1
         CType(Me.生產系統BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataSet1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgEquip, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.設備BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        CType(Me.dgMaintain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -115,5 +216,16 @@ Partial Class Form1
     Friend WithEvents 生產系統BindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents 生產系統TableAdapter As winData2.DataSet1TableAdapters.生產系統TableAdapter
     Friend WithEvents cmbEquip As System.Windows.Forms.ComboBox
+    Friend WithEvents 設備BindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents 設備TableAdapter As winData2.DataSet1TableAdapters.設備TableAdapter
+    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents dgMaintain As System.Windows.Forms.DataGridView
+    Friend WithEvents btAddData As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents 識別碼DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents 設備名稱DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents 設備編號DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents 系統DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents 安裝日期DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

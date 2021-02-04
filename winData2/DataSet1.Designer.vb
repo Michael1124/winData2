@@ -31,6 +31,8 @@ Partial Public Class DataSet1
 
     Private table設備保養日期 As 設備保養日期DataTable
 
+    Private relation設備設備保養日期 As Global.System.Data.DataRelation
+
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -242,6 +244,7 @@ Partial Public Class DataSet1
                 Me.table設備保養日期.InitVars()
             End If
         End If
+        Me.relation設備設備保養日期 = Me.Relations("設備設備保養日期")
     End Sub
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -258,6 +261,8 @@ Partial Public Class DataSet1
         MyBase.Tables.Add(Me.table設備)
         Me.table設備保養日期 = New 設備保養日期DataTable()
         MyBase.Tables.Add(Me.table設備保養日期)
+        Me.relation設備設備保養日期 = New Global.System.Data.DataRelation("設備設備保養日期", New Global.System.Data.DataColumn() {Me.table設備.識別碼Column}, New Global.System.Data.DataColumn() {Me.table設備保養日期.設備識別碼Column}, False)
+        Me.Relations.Add(Me.relation設備設備保養日期)
     End Sub
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1062,9 +1067,11 @@ Partial Public Class DataSet1
 
         Private column識別碼 As Global.System.Data.DataColumn
 
-        Private column設備編號 As Global.System.Data.DataColumn
+        Private column設備識別碼 As Global.System.Data.DataColumn
 
         Private column保養日期 As Global.System.Data.DataColumn
+
+        Private column保養內容 As Global.System.Data.DataColumn
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
@@ -1111,9 +1118,9 @@ Partial Public Class DataSet1
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property 設備編號Column() As Global.System.Data.DataColumn
+        Public ReadOnly Property 設備識別碼Column() As Global.System.Data.DataColumn
             Get
-                Return Me.column設備編號
+                Return Me.column設備識別碼
             End Get
         End Property
 
@@ -1122,6 +1129,14 @@ Partial Public Class DataSet1
         Public ReadOnly Property 保養日期Column() As Global.System.Data.DataColumn
             Get
                 Return Me.column保養日期
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property 保養內容Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.column保養內容
             End Get
         End Property
 
@@ -1162,9 +1177,12 @@ Partial Public Class DataSet1
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function Add設備保養日期Row(ByVal 設備編號 As String, ByVal 保養日期 As Date) As 設備保養日期Row
+        Public Overloads Function Add設備保養日期Row(ByVal parent設備RowBy設備設備保養日期 As 設備Row, ByVal 保養日期 As Date, ByVal 保養內容 As String) As 設備保養日期Row
             Dim row設備保養日期Row As 設備保養日期Row = CType(Me.NewRow, 設備保養日期Row)
-            Dim columnValuesArray() As Object = New Object() {Nothing, 設備編號, 保養日期}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Nothing, 保養日期, 保養內容}
+            If (Not (parent設備RowBy設備設備保養日期) Is Nothing) Then
+                columnValuesArray(1) = parent設備RowBy設備設備保養日期(0)
+            End If
             row設備保養日期Row.ItemArray = columnValuesArray
             Me.Rows.Add(row設備保養日期Row)
             Return row設備保養日期Row
@@ -1200,8 +1218,9 @@ Partial Public Class DataSet1
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub InitVars()
             Me.column識別碼 = MyBase.Columns("識別碼")
-            Me.column設備編號 = MyBase.Columns("設備編號")
+            Me.column設備識別碼 = MyBase.Columns("設備識別碼")
             Me.column保養日期 = MyBase.Columns("保養日期")
+            Me.column保養內容 = MyBase.Columns("保養內容")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1209,17 +1228,19 @@ Partial Public Class DataSet1
         Private Sub InitClass()
             Me.column識別碼 = New Global.System.Data.DataColumn("識別碼", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.column識別碼)
-            Me.column設備編號 = New Global.System.Data.DataColumn("設備編號", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.column設備編號)
+            Me.column設備識別碼 = New Global.System.Data.DataColumn("設備識別碼", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.column設備識別碼)
             Me.column保養日期 = New Global.System.Data.DataColumn("保養日期", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.column保養日期)
+            Me.column保養內容 = New Global.System.Data.DataColumn("保養內容", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.column保養內容)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.column識別碼}, True))
             Me.column識別碼.AutoIncrement = True
             Me.column識別碼.AutoIncrementSeed = -1
             Me.column識別碼.AutoIncrementStep = -1
             Me.column識別碼.AllowDBNull = False
             Me.column識別碼.Unique = True
-            Me.column設備編號.MaxLength = 255
+            Me.column保養內容.MaxLength = 255
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1725,6 +1746,16 @@ Partial Public Class DataSet1
         Public Sub Set安裝日期Null()
             Me(Me.table設備.安裝日期Column) = Global.System.Convert.DBNull
         End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function Get設備保養日期Rows() As 設備保養日期Row()
+            If (Me.Table.ChildRelations("設備設備保養日期") Is Nothing) Then
+                Return New 設備保養日期Row(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("設備設備保養日期")), 設備保養日期Row())
+            End If
+        End Function
     End Class
 
     '''<summary>
@@ -1755,16 +1786,16 @@ Partial Public Class DataSet1
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property 設備編號() As String
+        Public Property 設備識別碼() As Integer
             Get
                 Try
-                    Return CType(Me(Me.table設備保養日期.設備編號Column), String)
+                    Return CType(Me(Me.table設備保養日期.設備識別碼Column), Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("資料表 '設備保養日期' 中資料行 '設備編號' 的值是 DBNull。", e)
+                    Throw New Global.System.Data.StrongTypingException("資料表 '設備保養日期' 中資料行 '設備識別碼' 的值是 DBNull。", e)
                 End Try
             End Get
-            Set(value As String)
-                Me(Me.table設備保養日期.設備編號Column) = value
+            Set(value As Integer)
+                Me(Me.table設備保養日期.設備識別碼Column) = value
             End Set
         End Property
 
@@ -1785,14 +1816,40 @@ Partial Public Class DataSet1
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function Is設備編號Null() As Boolean
-            Return Me.IsNull(Me.table設備保養日期.設備編號Column)
+        Public Property 保養內容() As String
+            Get
+                Try
+                    Return CType(Me(Me.table設備保養日期.保養內容Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("資料表 '設備保養日期' 中資料行 '保養內容' 的值是 DBNull。", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.table設備保養日期.保養內容Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property 設備Row() As 設備Row
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("設備設備保養日期")), 設備Row)
+            End Get
+            Set(value As 設備Row)
+                Me.SetParentRow(value, Me.Table.ParentRelations("設備設備保養日期"))
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function Is設備識別碼Null() As Boolean
+            Return Me.IsNull(Me.table設備保養日期.設備識別碼Column)
         End Function
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub Set設備編號Null()
-            Me(Me.table設備保養日期.設備編號Column) = Global.System.Convert.DBNull
+        Public Sub Set設備識別碼Null()
+            Me(Me.table設備保養日期.設備識別碼Column) = Global.System.Convert.DBNull
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1805,6 +1862,18 @@ Partial Public Class DataSet1
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub Set保養日期Null()
             Me(Me.table設備保養日期.保養日期Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function Is保養內容Null() As Boolean
+            Return Me.IsNull(Me.table設備保養日期.保養內容Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub Set保養內容Null()
+            Me(Me.table設備保養日期.保養內容Column) = Global.System.Convert.DBNull
         End Sub
     End Class
 
@@ -2208,8 +2277,7 @@ Namespace DataSet1TableAdapters
         Public Overridable Overloads Function Delete(ByVal Original_識別碼 As Integer, ByVal Original_系統 As String, ByVal _Original_設計產量m3_h As Global.System.Nullable(Of Integer), ByVal Original_園區 As String, ByVal Original_廠區 As String, ByVal Original_開始生產日 As Global.System.Nullable(Of Date), ByVal Original_生產氮氣 As Boolean, ByVal Original_生產液氮 As Boolean, ByVal Original_生產液氧 As Boolean) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_識別碼, Integer)
             If (Original_系統 Is Nothing) Then
-                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(1, Object)
-                Me.Adapter.DeleteCommand.Parameters(2).Value = Global.System.DBNull.Value
+                Throw New Global.System.ArgumentNullException("Original_系統")
             Else
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0, Object)
                 Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_系統, String)
@@ -2269,7 +2337,7 @@ Namespace DataSet1TableAdapters
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
         Public Overridable Overloads Function Insert(ByVal 系統 As String, ByVal _設計產量m3_h As Global.System.Nullable(Of Integer), ByVal 園區 As String, ByVal 廠區 As String, ByVal 開始生產日 As Global.System.Nullable(Of Date), ByVal 生產氮氣 As Boolean, ByVal 生產液氮 As Boolean, ByVal 生產液氧 As Boolean) As Integer
             If (系統 Is Nothing) Then
-                Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
+                Throw New Global.System.ArgumentNullException("系統")
             Else
                 Me.Adapter.InsertCommand.Parameters(0).Value = CType(系統, String)
             End If
@@ -2334,7 +2402,7 @@ Namespace DataSet1TableAdapters
                     ByVal Original_生產液氮 As Boolean, _
                     ByVal Original_生產液氧 As Boolean) As Integer
             If (系統 Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
+                Throw New Global.System.ArgumentNullException("系統")
             Else
                 Me.Adapter.UpdateCommand.Parameters(0).Value = CType(系統, String)
             End If
@@ -2363,8 +2431,7 @@ Namespace DataSet1TableAdapters
             Me.Adapter.UpdateCommand.Parameters(7).Value = CType(生產液氧, Boolean)
             Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_識別碼, Integer)
             If (Original_系統 Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(1, Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
+                Throw New Global.System.ArgumentNullException("Original_系統")
             Else
                 Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0, Object)
                 Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_系統, String)
@@ -2615,13 +2682,14 @@ Namespace DataSet1TableAdapters
             Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(1).Connection = Me.Connection
             Me._commandCollection(1).CommandText = "SELECT          識別碼, 設備名稱, 設備編號, 系統, 安裝日期" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "FROM              設備" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "WHERE          (" & _
-                "系統 = ?) AND (設備編號 = ?)"
+                "系統 = ?) AND (識別碼 = ?)"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("系統", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "系統", Global.System.Data.DataRowVersion.Current, False, Nothing))
-            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備編號", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Current, False, Nothing))
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "識別碼", Global.System.Data.DataRowVersion.Current, False, Nothing))
             Me._commandCollection(2) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(2).Connection = Me.Connection
-            Me._commandCollection(2).CommandText = "SELECT          設備.*" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "FROM              設備" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "where 系統 = ? "
+            Me._commandCollection(2).CommandText = "SELECT          識別碼, 設備名稱, 設備編號, 系統, 安裝日期" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "FROM              設備" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "WHERE          (" & _
+                "系統 = ?)"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("系統", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "系統", Global.System.Data.DataRowVersion.Current, False, Nothing))
         End Sub
@@ -2654,18 +2722,14 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, False)> _
-        Public Overridable Overloads Function FillByQuery(ByVal dataTable As DataSet1.設備DataTable, ByVal 系統 As String, ByVal 設備編號 As String) As Integer
+        Public Overridable Overloads Function FillByEqu(ByVal dataTable As DataSet1.設備DataTable, ByVal 系統 As String, ByVal 識別碼 As Integer) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
             If (系統 Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(系統, String)
             End If
-            If (設備編號 Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(設備編號, String)
-            End If
+            Me.Adapter.SelectCommand.Parameters(1).Value = CType(識別碼, Integer)
             If (Me.ClearBeforeFill = True) Then
                 dataTable.Clear()
             End If
@@ -2677,18 +2741,14 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Overridable Overloads Function GetDataByQuery(ByVal 系統 As String, ByVal 設備編號 As String) As DataSet1.設備DataTable
+        Public Overridable Overloads Function GetDataByEqu(ByVal 系統 As String, ByVal 識別碼 As Integer) As DataSet1.設備DataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
             If (系統 Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(系統, String)
             End If
-            If (設備編號 Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(設備編號, String)
-            End If
+            Me.Adapter.SelectCommand.Parameters(1).Value = CType(識別碼, Integer)
             Dim dataTable As DataSet1.設備DataTable = New DataSet1.設備DataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -3043,37 +3103,46 @@ Namespace DataSet1TableAdapters
             tableMapping.SourceTable = "Table"
             tableMapping.DataSetTable = "設備保養日期"
             tableMapping.ColumnMappings.Add("識別碼", "識別碼")
-            tableMapping.ColumnMappings.Add("設備編號", "設備編號")
+            tableMapping.ColumnMappings.Add("設備識別碼", "設備識別碼")
             tableMapping.ColumnMappings.Add("保養日期", "保養日期")
+            tableMapping.ColumnMappings.Add("保養內容", "保養內容")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM `設備保養日期` WHERE ((`識別碼` = ?) AND ((? = 1 AND `設備編號` IS NULL) OR (`設備編號" & _
-                "` = ?)) AND ((? = 1 AND `保養日期` IS NULL) OR (`保養日期` = ?)))"
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM `設備保養日期` WHERE ((`識別碼` = ?) AND ((? = 1 AND `設備識別碼` IS NULL) OR (`設備識" & _
+                "別碼` = ?)) AND ((? = 1 AND `保養日期` IS NULL) OR (`保養日期` = ?)) AND ((? = 1 AND `保養內容" & _
+                "` IS NULL) OR (`保養內容` = ?)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "識別碼", Global.System.Data.DataRowVersion.Original, False, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_設備編號", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Original, True, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_設備編號", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Original, False, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Original, True, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Original, False, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_保養日期", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養日期", Global.System.Data.DataRowVersion.Original, True, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_保養日期", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養日期", Global.System.Data.DataRowVersion.Original, False, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_保養內容", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養內容", Global.System.Data.DataRowVersion.Original, True, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_保養內容", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養內容", Global.System.Data.DataRowVersion.Original, False, Nothing))
             Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO `設備保養日期` (`設備編號`, `保養日期`) VALUES (?, ?)"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO `設備保養日期` (`設備識別碼`, `保養日期`, `保養內容`) VALUES (?, ?, ?)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備編號", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Current, False, Nothing))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Current, False, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("保養日期", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養日期", Global.System.Data.DataRowVersion.Current, False, Nothing))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("保養內容", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養內容", Global.System.Data.DataRowVersion.Current, False, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE `設備保養日期` SET `設備編號` = ?, `保養日期` = ? WHERE ((`識別碼` = ?) AND ((? = 1 AND `設備" & _
-                "編號` IS NULL) OR (`設備編號` = ?)) AND ((? = 1 AND `保養日期` IS NULL) OR (`保養日期` = ?)))"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE `設備保養日期` SET `設備識別碼` = ?, `保養日期` = ?, `保養內容` = ? WHERE ((`識別碼` = ?) AND ((" & _
+                "? = 1 AND `設備識別碼` IS NULL) OR (`設備識別碼` = ?)) AND ((? = 1 AND `保養日期` IS NULL) OR " & _
+                "(`保養日期` = ?)) AND ((? = 1 AND `保養內容` IS NULL) OR (`保養內容` = ?)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備編號", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Current, False, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Current, False, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("保養日期", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養日期", Global.System.Data.DataRowVersion.Current, False, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("保養內容", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養內容", Global.System.Data.DataRowVersion.Current, False, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "識別碼", Global.System.Data.DataRowVersion.Original, False, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_設備編號", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Original, True, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_設備編號", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備編號", Global.System.Data.DataRowVersion.Original, False, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Original, True, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Original, False, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_保養日期", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養日期", Global.System.Data.DataRowVersion.Original, True, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_保養日期", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養日期", Global.System.Data.DataRowVersion.Original, False, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_保養內容", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養內容", Global.System.Data.DataRowVersion.Original, True, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_保養內容", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "保養內容", Global.System.Data.DataRowVersion.Original, False, Nothing))
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -3086,11 +3155,16 @@ Namespace DataSet1TableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT          設備保養日期.*" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "FROM              設備保養日期"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(1).Connection = Me.Connection
+            Me._commandCollection(1).CommandText = "SELECT 保養內容, 保養日期, 設備識別碼, 識別碼 FROM 設備保養日期 WHERE (設備識別碼 = ?)"
+            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Current, False, Nothing))
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -3112,6 +3186,40 @@ Namespace DataSet1TableAdapters
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
         Public Overridable Overloads Function GetData() As DataSet1.設備保養日期DataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As DataSet1.設備保養日期DataTable = New DataSet1.設備保養日期DataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, False)> _
+        Public Overridable Overloads Function FillByID(ByVal dataTable As DataSet1.設備保養日期DataTable, ByVal 設備識別碼 As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (設備識別碼.HasValue = True) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(設備識別碼.Value, Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = True) Then
+                dataTable.Clear()
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Overridable Overloads Function GetDataByID(ByVal 設備識別碼 As Global.System.Nullable(Of Integer)) As DataSet1.設備保養日期DataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (設備識別碼.HasValue = True) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(設備識別碼.Value, Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As DataSet1.設備保養日期DataTable = New DataSet1.設備保養日期DataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -3149,14 +3257,14 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
-        Public Overridable Overloads Function Delete(ByVal Original_識別碼 As Integer, ByVal Original_設備編號 As String, ByVal Original_保養日期 As Global.System.Nullable(Of Date)) As Integer
+        Public Overridable Overloads Function Delete(ByVal Original_識別碼 As Integer, ByVal Original_設備識別碼 As Global.System.Nullable(Of Integer), ByVal Original_保養日期 As Global.System.Nullable(Of Date), ByVal Original_保養內容 As String) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_識別碼, Integer)
-            If (Original_設備編號 Is Nothing) Then
+            If (Original_設備識別碼.HasValue = True) Then
+                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0, Object)
+                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_設備識別碼.Value, Integer)
+            Else
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(1, Object)
                 Me.Adapter.DeleteCommand.Parameters(2).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0, Object)
-                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_設備編號, String)
             End If
             If (Original_保養日期.HasValue = True) Then
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(0, Object)
@@ -3164,6 +3272,12 @@ Namespace DataSet1TableAdapters
             Else
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(1, Object)
                 Me.Adapter.DeleteCommand.Parameters(4).Value = Global.System.DBNull.Value
+            End If
+            If (Original_保養內容 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("Original_保養內容")
+            Else
+                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(0, Object)
+                Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_保養內容, String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
@@ -3184,16 +3298,21 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
-        Public Overridable Overloads Function Insert(ByVal 設備編號 As String, ByVal 保養日期 As Global.System.Nullable(Of Date)) As Integer
-            If (設備編號 Is Nothing) Then
-                Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
+        Public Overridable Overloads Function Insert(ByVal 設備識別碼 As Global.System.Nullable(Of Integer), ByVal 保養日期 As Global.System.Nullable(Of Date), ByVal 保養內容 As String) As Integer
+            If (設備識別碼.HasValue = True) Then
+                Me.Adapter.InsertCommand.Parameters(0).Value = CType(設備識別碼.Value, Integer)
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(設備編號, String)
+                Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
             End If
             If (保養日期.HasValue = True) Then
                 Me.Adapter.InsertCommand.Parameters(1).Value = CType(保養日期.Value, Date)
             Else
                 Me.Adapter.InsertCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (保養內容 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("保養內容")
+            Else
+                Me.Adapter.InsertCommand.Parameters(2).Value = CType(保養內容, String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
@@ -3214,31 +3333,42 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"), _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
-        Public Overridable Overloads Function Update(ByVal 設備編號 As String, ByVal 保養日期 As Global.System.Nullable(Of Date), ByVal Original_識別碼 As Integer, ByVal Original_設備編號 As String, ByVal Original_保養日期 As Global.System.Nullable(Of Date)) As Integer
-            If (設備編號 Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
+        Public Overridable Overloads Function Update(ByVal 設備識別碼 As Global.System.Nullable(Of Integer), ByVal 保養日期 As Global.System.Nullable(Of Date), ByVal 保養內容 As String, ByVal Original_識別碼 As Integer, ByVal Original_設備識別碼 As Global.System.Nullable(Of Integer), ByVal Original_保養日期 As Global.System.Nullable(Of Date), ByVal Original_保養內容 As String) As Integer
+            If (設備識別碼.HasValue = True) Then
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(設備識別碼.Value, Integer)
             Else
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(設備編號, String)
+                Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
             End If
             If (保養日期.HasValue = True) Then
                 Me.Adapter.UpdateCommand.Parameters(1).Value = CType(保養日期.Value, Date)
             Else
                 Me.Adapter.UpdateCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Original_識別碼, Integer)
-            If (Original_設備編號 Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(1, Object)
-                Me.Adapter.UpdateCommand.Parameters(4).Value = Global.System.DBNull.Value
+            If (保養內容 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("保養內容")
             Else
-                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(0, Object)
-                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_設備編號, String)
+                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(保養內容, String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_識別碼, Integer)
+            If (Original_設備識別碼.HasValue = True) Then
+                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(0, Object)
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_設備識別碼.Value, Integer)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(1, Object)
+                Me.Adapter.UpdateCommand.Parameters(5).Value = Global.System.DBNull.Value
             End If
             If (Original_保養日期.HasValue = True) Then
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(0, Object)
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_保養日期.Value, Date)
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(0, Object)
+                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_保養日期.Value, Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(1, Object)
-                Me.Adapter.UpdateCommand.Parameters(6).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(1, Object)
+                Me.Adapter.UpdateCommand.Parameters(7).Value = Global.System.DBNull.Value
+            End If
+            If (Original_保養內容 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("Original_保養內容")
+            Else
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(0, Object)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_保養內容, String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
@@ -3396,21 +3526,21 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Private Function UpdateUpdatedRows(ByVal dataSet As DataSet1, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow), ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
-            If (Not (Me._生產系統TableAdapter) Is Nothing) Then
-                Dim updatedRows() As Global.System.Data.DataRow = dataSet.生產系統.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
-                updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
-                            AndAlso (0 < updatedRows.Length)) Then
-                    result = (result + Me._生產系統TableAdapter.Update(updatedRows))
-                    allChangedRows.AddRange(updatedRows)
-                End If
-            End If
             If (Not (Me._設備TableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.設備.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
                 If ((Not (updatedRows) Is Nothing) _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._設備TableAdapter.Update(updatedRows))
+                    allChangedRows.AddRange(updatedRows)
+                End If
+            End If
+            If (Not (Me._生產系統TableAdapter) Is Nothing) Then
+                Dim updatedRows() As Global.System.Data.DataRow = dataSet.生產系統.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
+                updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
+                If ((Not (updatedRows) Is Nothing) _
+                            AndAlso (0 < updatedRows.Length)) Then
+                    result = (result + Me._生產系統TableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
                 End If
             End If
@@ -3433,19 +3563,19 @@ Namespace DataSet1TableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Private Function UpdateInsertedRows(ByVal dataSet As DataSet1, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
-            If (Not (Me._生產系統TableAdapter) Is Nothing) Then
-                Dim addedRows() As Global.System.Data.DataRow = dataSet.生產系統.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
-                            AndAlso (0 < addedRows.Length)) Then
-                    result = (result + Me._生產系統TableAdapter.Update(addedRows))
-                    allAddedRows.AddRange(addedRows)
-                End If
-            End If
             If (Not (Me._設備TableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.設備.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
                 If ((Not (addedRows) Is Nothing) _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._設備TableAdapter.Update(addedRows))
+                    allAddedRows.AddRange(addedRows)
+                End If
+            End If
+            If (Not (Me._生產系統TableAdapter) Is Nothing) Then
+                Dim addedRows() As Global.System.Data.DataRow = dataSet.生產系統.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
+                If ((Not (addedRows) Is Nothing) _
+                            AndAlso (0 < addedRows.Length)) Then
+                    result = (result + Me._生產系統TableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
                 End If
             End If
@@ -3475,19 +3605,19 @@ Namespace DataSet1TableAdapters
                     allChangedRows.AddRange(deletedRows)
                 End If
             End If
-            If (Not (Me._設備TableAdapter) Is Nothing) Then
-                Dim deletedRows() As Global.System.Data.DataRow = dataSet.設備.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
-                            AndAlso (0 < deletedRows.Length)) Then
-                    result = (result + Me._設備TableAdapter.Update(deletedRows))
-                    allChangedRows.AddRange(deletedRows)
-                End If
-            End If
             If (Not (Me._生產系統TableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.生產系統.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
                 If ((Not (deletedRows) Is Nothing) _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._生產系統TableAdapter.Update(deletedRows))
+                    allChangedRows.AddRange(deletedRows)
+                End If
+            End If
+            If (Not (Me._設備TableAdapter) Is Nothing) Then
+                Dim deletedRows() As Global.System.Data.DataRow = dataSet.設備.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
+                If ((Not (deletedRows) Is Nothing) _
+                            AndAlso (0 < deletedRows.Length)) Then
+                    result = (result + Me._設備TableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
                 End If
             End If
