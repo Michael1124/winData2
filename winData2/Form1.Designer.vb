@@ -41,6 +41,8 @@ Partial Class Form1
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.dgMaintain = New System.Windows.Forms.DataGridView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.生產系統BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataSet1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,6 +57,8 @@ Partial Class Form1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Beige
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.cmbEquip)
         Me.Panel1.Controls.Add(Me.cmbSystem)
         Me.Panel1.Location = New System.Drawing.Point(18, 16)
@@ -66,7 +70,7 @@ Partial Class Form1
         'cmbEquip
         '
         Me.cmbEquip.FormattingEnabled = True
-        Me.cmbEquip.Location = New System.Drawing.Point(49, 56)
+        Me.cmbEquip.Location = New System.Drawing.Point(119, 56)
         Me.cmbEquip.Name = "cmbEquip"
         Me.cmbEquip.Size = New System.Drawing.Size(234, 24)
         Me.cmbEquip.TabIndex = 1
@@ -76,7 +80,7 @@ Partial Class Form1
         Me.cmbSystem.DataSource = Me.生產系統BindingSource
         Me.cmbSystem.DisplayMember = "系統"
         Me.cmbSystem.FormattingEnabled = True
-        Me.cmbSystem.Location = New System.Drawing.Point(49, 25)
+        Me.cmbSystem.Location = New System.Drawing.Point(119, 25)
         Me.cmbSystem.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbSystem.Name = "cmbSystem"
         Me.cmbSystem.Size = New System.Drawing.Size(234, 24)
@@ -186,6 +190,24 @@ Partial Class Form1
         Me.dgMaintain.Size = New System.Drawing.Size(920, 276)
         Me.dgMaintain.TabIndex = 0
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(23, 28)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(56, 16)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "系統："
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(23, 64)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(56, 16)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "設備："
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -199,6 +221,7 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.生產系統BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataSet1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgEquip, System.ComponentModel.ISupportInitialize).EndInit()
@@ -227,5 +250,7 @@ Partial Class Form1
     Friend WithEvents 設備編號DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents 系統DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents 安裝日期DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

@@ -3162,7 +3162,7 @@ Namespace DataSet1TableAdapters
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT 保養內容, 保養日期, 設備識別碼, 識別碼 FROM 設備保養日期 WHERE (設備識別碼 = ?)"
+            Me._commandCollection(1).CommandText = "SELECT 保養內容, 保養日期, 設備識別碼, 識別碼 FROM 設備保養日期 WHERE (設備識別碼 = ?)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "order by 保養日期 asc"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("設備識別碼", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0, Byte), CType(0, Byte), "設備識別碼", Global.System.Data.DataRowVersion.Current, False, Nothing))
         End Sub
